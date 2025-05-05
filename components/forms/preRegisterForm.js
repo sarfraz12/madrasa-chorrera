@@ -101,7 +101,7 @@ export default function PreRegisterForm(props) {
                         {message}
                     </p>
                 )}
-                <form onSubmit={handleSubmit} className="mt-8 space-y-6" disabled>
+                <form onSubmit={handleSubmit} className="mt-8 space-y-6" >
                     <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <div className="sm:col-span-3">
                             <label htmlFor="firstName" className="block dark:text-white text-sm font-medium text-gray-700"><UserIcon className='h-4 w-4 inline-block mx-2 text-gray-400' />Primer Nombre</label>
