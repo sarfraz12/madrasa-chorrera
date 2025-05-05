@@ -1,0 +1,24 @@
+import { getSettings } from "@/lib/sanity/client";
+import Contact from "./contact";
+import { Suspense } from "react";
+import  Loading from "@/app/(website)/[lang]/loading";
+
+export async function generateStaticParams() {
+  const langs = ["en", "es"]; // Add your supported languages here
+  const params = langs.map(lang => ({
+      lang,
+  }));
+  return params;
+}
+
+export default async function ContactPage({ params }) {
+  const settings = await getSettings();
+  return (
+    <Suspense fallback={<Loading />}>
+      <Contact settings={settings} lang={params.lang} />
+    </Suspense>
+
+  );
+}
+
+// export const revalidate = 60;
