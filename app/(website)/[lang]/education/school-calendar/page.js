@@ -1,5 +1,5 @@
 // import { getSettings } from "@/lib/sanity/client";
-import SchoolCalendar from "./SchoolCalendar";
+import SchoolCalendar from "./schoolCalendar";
 import { getSchoolCalendarPage, getPostById } from "@/lib/sanity/client";
 import { Suspense } from "react";
 import Loading from "@/app/(website)/[lang]/loading";
