@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/navigation/navbar.js", "app/(website)/[lang]/services/desktopSupport/page.js", "lib/sanity/plugins/settings.js", "components/navigation/footer.tsx", "components/generalUse/container.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/navigation/navbar.js", "lib/sanity/plugins/settings.js", "components/navigation/footer.tsx", "components/generalUse/container.js"],
   "exclude": ["node_modules"]
 }

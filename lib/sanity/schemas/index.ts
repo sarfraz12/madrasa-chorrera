@@ -14,11 +14,9 @@ import donationsPage from './donationsPage'
 import welcomePage from './welcomeContentPage'
 import admissionProcessPage from './admissionProcessPage'
 import admissionFormsPage from './admissionFormsPage'
-import preRegisterForm from './preRegisterForm'
 
 export const schemaTypes = [navbarData, footerData, post, author, category, settings, 
     blockContent, landingPage2, aboutPage,welcomePage,donationsPage,
     islamicCurriculumPage,schoolCurriculumPage,schoolCalendarPage,
     admissionProcessPage, admissionFormsPage,
-    preRegisterForm,
  ]

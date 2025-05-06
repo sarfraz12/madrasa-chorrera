@@ -18,7 +18,6 @@ import {
   categoryidquery,
   allnavbarquery,
   allfooterquery,
-  alldesktopSupportpagequery,
   islamicCurriculumPage,
   schoolCurriculumPage,
   schoolCalendarPage,
@@ -141,14 +140,6 @@ export async function getLandingData2(lang: string) {
 
 }
 
-
-export async function getDestokSupportPage(lang: string) {
-  if (client) {
-    return (await client.fetch(alldesktopSupportpagequery, {lang})) || [];
-  }
-  return [];
-}
-
 export async function getPostById(postId: string, lang: string) {
   if (client) {
     return (await client.fetch(idquery, { postId, lang })) || {};
@@ -248,24 +239,6 @@ export async function getAdmissionFormsPage(lang: string) {
     return (await client.fetch(admissionFormsPage, {lang})) || [];
   }
   return [];
-}
-
-// this is to add value to the admission register form (think is no use)
-export async function createPreRegisterUser(formData: any) {
-
-  const clientCreate = createClient({ projectId: projectId, dataset: dataset, useCdn: false, 
-    apiVersion: apiVersion, token: tokenId, ignoreBrowserTokenWarning: true })
-
-  if (clientCreate) {
-    return await clientCreate.create({
-      _type: 'preRegisterForm',
-      ...formData,
-      slug: {
-        _type: 'slug',
-        current: `${formData.firstName}-${formData.lastName}-${formData.identification}`.toLowerCase().replace(/\s+/g, '-')
-      },
-    })
-  }
 }
 
 

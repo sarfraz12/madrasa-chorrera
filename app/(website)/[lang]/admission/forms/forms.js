@@ -6,7 +6,6 @@ import ServiceDescription from "@/components/cards/serviceDescription"
 import DetailsCard from "@/components/cards/detailsCard"
 import { notFound } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
-import PreRegisterForm from '@/components/forms/preRegisterForm'
 
 
 export default function FormPage(props) {
@@ -99,10 +98,6 @@ export default function FormPage(props) {
             ))}
           </div>
         )}
-
-        <div>
-          <PreRegisterForm open={true} />
-        </div>
 
       </Container>
     </>

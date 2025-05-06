@@ -19,7 +19,7 @@ export default async function AdmissionProcessPage({ params }) {
   const post = data?.[0]?.post?._ref ? await getPostById(data[0].post._ref, params.lang) : null;
 
 
-  // Ensure DesktopSupport renders even if data or post is null/undefined
+  // Ensure renders even if data or post is null/undefined
   return (
     <Suspense fallback={<Loading />}>
       {data?.[0] ? (

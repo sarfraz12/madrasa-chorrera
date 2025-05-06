@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
 
 
-export default function DesktopSupport(props) {
+export default function SchoolCalendar(props) {
 
   const { data, post, lang } = props || {};
 

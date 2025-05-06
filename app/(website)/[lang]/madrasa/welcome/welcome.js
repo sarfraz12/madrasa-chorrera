@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
 
 
-export default function DesktopSupport(props) {
+const WelcomePage = (props) => {
 
   const { data, post, lang } = props || {};
 
@@ -63,19 +63,20 @@ export default function DesktopSupport(props) {
 
           </div>
         )}
-
-        {data?.ctaContentCards?.map((item, index) => (
-          <CtaCard
-            key={index}
-            title={item?.ctaCardTitle}
-            subTitle={item?.ctaCardSubtitle}
-            description={item?.ctaCardDescription}
-            buttonMessage={item?.ctaCardButtonMessage}
-            buttonLink={item?.ctaCardButtonLink}
-            imageAlt={item?.ctaCardImageAlt}
-            image={urlForImage(item?.ctaCardImage)}
-          />
-        ))}
+        {data?.ctaContentCards?.length > 0 && (
+          data?.ctaContentCards?.map((item, index) => (
+            <CtaCard
+              key={index}
+              title={item?.ctaCardTitle}
+              subTitle={item?.ctaCardSubtitle}
+              description={item?.ctaCardDescription}
+              buttonMessage={item?.ctaCardButtonMessage}
+              buttonLink={item?.ctaCardButtonLink}
+              imageAlt={item?.ctaCardImageAlt}
+              image={urlForImage(item?.ctaCardImage)}
+            />
+          ))
+        )}
 
         {data?.galleryContent?.length > 0 && (
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -104,3 +105,4 @@ export default function DesktopSupport(props) {
   )
 }
 
+export default WelcomePage;

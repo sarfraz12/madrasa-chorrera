@@ -6,19 +6,63 @@ import { parseISO, format } from "date-fns";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import CategoryLabel from "@/components/blog/category";
 import { useRef, useState, useEffect } from "react";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-export default function PostList({ post, aspect, minimal, pathPrefix, preloadImage, fontSize, fontWeight, lang, animation = 'animate-fadeInScale' }) {
-  const imageProps = post?.mainImage
-    ?
-    urlForImage(post.mainImage)
-    : null;
-  const AuthorimageProps = post?.author?.image
-    ?
-    urlForImage(post.author.image)
-    : null;
+export interface PostListProps {
+  post: {
+    title: string;
+    excerpt?: string;
+    mainImage?: {
+      asset?: {
+        _ref?: string;
+        _type?: string;
+      };
+      alt?: string;
+      blurDataURL?: string;
+    };
+    slug: {
+      current: string;
+    };
+    author?: {
+      name?: string;
+      image?: SanityImageSource;
+    };
+    categories?: { title: string; slug?: { current: string } }[];
+    publishedAt?: string;
+    _createdAt?: string;
+  };
+  aspect?: "landscape" | "custom" | "square";
+  minimal?: boolean;
+  pathPrefix?: string;
+  preloadImage?: boolean;
+  fontSize?: "large" | "default";
+  fontWeight?: "normal" | "bold";
+  lang?: string;
+  animation?: string;
+}
+
+type ImageUrlResult = {
+  src: string;
+  loader?: (props: { src: string; width: number; quality?: number }) => string;
+} | any ;
+
+export default function PostList({
+  post,
+  aspect,
+  minimal,
+  pathPrefix,
+  preloadImage,
+  fontSize,
+  fontWeight,
+  lang,
+  animation = 'animate-fadeInScale',
+}: PostListProps) {
+  // Ensure urlForImage returns a value that is either ImageUrlResult or null
+  const imageProps: ImageUrlResult = post?.mainImage ? urlForImage(post.mainImage) : null;
+  const AuthorimageProps: ImageUrlResult = post?.author?.image ? urlForImage(post.author.image) : null;
 
   // animation handler
-  const section1Ref = useRef(null);
+  const section1Ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -26,10 +70,9 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
       threshold: 0.1, // Adjust threshold as needed
     };
 
-    const handleObserver = (entries) => {
+    const handleObserver = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !isVisible) {
-          // Only set visible if it's currently not visible
           setIsVisible(true);
         }
       });
@@ -49,9 +92,8 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
 
   return (
     <>
-
       <div
-        ref={section1Ref} // Attach ref to the main div for observing visibility
+        ref={section1Ref}
         className={cx(
           "group cursor-pointer",
           minimal && "grid gap-10 md:grid-cols-2",
@@ -59,7 +101,7 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
         )}>
         <div
           className={cx(
-            " overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105   dark:bg-gray-800",
+            "overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800"
           )}>
           <Link
             className={cx(
@@ -74,9 +116,8 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
           >
             {imageProps ? (
               <Image
-                src={imageProps.src}
-                // src={imageProps}
-                {...(post.mainImage.blurDataURL && {
+                src={imageProps?.src || ""}
+                {...(post?.mainImage?.blurDataURL && {
                   placeholder: "blur",
                   blurDataURL: post.mainImage.blurDataURL
                 })}
@@ -109,9 +150,9 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
                     ? "text-3xl"
                     : "text-lg",
                 fontWeight === "normal"
-                  ? "line-clamp-2 font-medium  tracking-normal text-black"
+                  ? "line-clamp-2 font-medium tracking-normal text-black"
                   : "font-semibold leading-snug tracking-tight",
-                "mt-2    dark:text-white"
+                "mt-2 dark:text-white"
               )}>
               <Link
                 href={`${!lang ? "" : "/" + lang}/${pathPrefix ? `${pathPrefix}/` : "all/"}post/${post.slug?.current}`}
@@ -143,18 +184,15 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
             </div>
 
             {/* Author Section */}
-
             <div className="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400">
-              <Link
-                href={'#'}
-                legacyBehavior>
+              <Link href={'#'} legacyBehavior>
                 <div className="flex items-center gap-3">
                   <div className="relative h-5 w-5 flex-shrink-0">
-                    {imageProps && (
+                    {AuthorimageProps && (
                       <Image
-                        src={AuthorimageProps.src}
-                        loader={AuthorimageProps.loader}
-                        alt={post?.author?.name}
+                        src={AuthorimageProps?.src || '/'}
+                        loader={AuthorimageProps?.loader}
+                        alt={post?.author?.name || ""}
                         className="rounded-full object-cover"
                         fill
                         sizes="(max-width: 768px) 100vw, 20vw"
@@ -167,8 +205,7 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
                 </div>
               </Link>
 
-              {/* Time  section */}
-
+              {/* Time section */}
               <span className="text-xs text-gray-300 dark:text-gray-600">
                 &bull;
               </span>
@@ -176,7 +213,7 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
                 className="truncate text-sm"
                 dateTime={post?.publishedAt || post._createdAt}>
                 {format(
-                  parseISO(post?.publishedAt || post._createdAt),
+                  parseISO(post?.publishedAt || post._createdAt || new Date().toISOString()),
                   "MMMM dd, yyyy"
                 )}
               </time>
@@ -184,10 +221,6 @@ export default function PostList({ post, aspect, minimal, pathPrefix, preloadIma
               <span className="text-xs text-gray-300 dark:text-gray-600">
                 &bull;
               </span>
-              {/* 
-              <div className="truncate text-sm">
-                {getReadingTime(post.alt)}
-              </div> */}
             </div>
           </div>
         </div>

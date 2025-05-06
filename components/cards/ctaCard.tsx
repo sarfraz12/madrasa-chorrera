@@ -9,7 +9,7 @@ interface Data {
     buttonMessage?: string;
     buttonLink?: string;
     imageAlt?: string;
-    image?: string;
+    image?: string | any;
 }
 
 export default function CtaCard({
@@ -26,7 +26,7 @@ export default function CtaCard({
     return (
         <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900  rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform transition-transform duration-300 hover:scale-105">
             <div className="md:flex">
-                <div className="md:flex-shrink-0 relative md:w-48"> {/* Added 'relative' for fill prop */}
+                <div className="md:flex-shrink-0 relative md:w-48 h-48"> {/* Added 'relative' for fill prop */}
                     <Image
                         className="object-cover"
                         fill

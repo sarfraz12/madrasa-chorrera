@@ -12,7 +12,7 @@ interface SectionProps {
   title: string;
   description: string;
   description2: string;
-  imageSrc: string;
+  imageSrc: string | any;
   reverse?: boolean; // Optional prop to reverse the image and text layout
   animation?: string;
   points?: Point[],
