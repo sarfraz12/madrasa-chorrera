@@ -8,7 +8,7 @@ import AuthorCard from "@/components/blog/authorCard";
 import Sidebar from "@/components/navigation/sidebar";
 
 export default function Post(props) {
-  const { loading, post, categories } = props;
+  const { loading, post, categories } = props || {};;
 
   const slug = post?.slug;
 

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { UserIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 
 export default function PreRegisterForm(props) {
-    const { open } = props
+    const { open=true } = props || {};
 
     const [formData, setFormData] = useState({
         firstName: '',

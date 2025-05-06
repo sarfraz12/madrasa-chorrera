@@ -10,7 +10,7 @@ import { urlForImage } from "@/lib/sanity/image";
 
 export default function DesktopSupport(props) {
 
-  const { data, post, lang } = props
+  const { data, post, lang } = props || {};
 
   if (!data) {
     notFound();

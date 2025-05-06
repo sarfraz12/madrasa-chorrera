@@ -9,9 +9,9 @@ import { urlForImage } from "@/lib/sanity/image";
 import PreRegisterForm from '@/components/forms/preRegisterForm'
 
 
-export default function DesktopSupport(props) {
+export default function FormPage(props) {
 
-  const { data, post, lang } = props
+  const { data, post, lang } = props || {};
 
   if (!data) {
     notFound();

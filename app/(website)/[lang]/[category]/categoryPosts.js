@@ -11,7 +11,7 @@ import Pagination from "@/components/navigation/pagination";
 const POSTS_PER_PAGE = 6;
 
 export default function Author(props) {
-  const { internalPosts, title, categories } = props;
+  const { internalPosts, title, categories } = props || {};;
 
   if (!internalPosts) {
     notFound();

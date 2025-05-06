@@ -2,7 +2,7 @@ import { BanknotesIcon, FolderMinusIcon, PresentationChartLineIcon } from "@hero
 
 
 export default function CardIcon(props) {
-  const { data } = props
+  const { data } = props || {};
 
   const iconsChange = (icon) => {
 

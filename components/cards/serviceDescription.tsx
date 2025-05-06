@@ -32,8 +32,8 @@ export default function ServiceDescription({
 }: SectionProps) {
 
   // animation handler
-  const section1Ref = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const section1Ref = useRef<HTMLDivElement | null>(null) || {};;
+  const [isVisible, setIsVisible] = useState(false) || {};;
 
   useEffect(() => {
     const observerOptions = {
@@ -49,7 +49,7 @@ export default function ServiceDescription({
       });
     };
 
-    const observer = new IntersectionObserver(handleObserver, observerOptions);
+    const observer = new IntersectionObserver(handleObserver, observerOptions) || {};;
     const section1 = section1Ref.current;
 
     if (section1) {
