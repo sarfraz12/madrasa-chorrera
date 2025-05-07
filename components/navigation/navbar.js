@@ -117,6 +117,7 @@ export default  function Navbar(props) {
                                                     menu={item}
                                                     key={`${item.label}${index}`}
                                                     items={item.children}
+                                                    lang={lang}
                                                 />
                                             ) : (
                                                 <Link

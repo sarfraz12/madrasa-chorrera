@@ -5,6 +5,23 @@ import Link from "next/link";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 
 export default function About({ authors, data, lang }) {
+
+  const customComponents = {
+    block: {
+      normal: ({ children }) => (
+        <p className="w-full text-base leading-relaxed">{children}</p>
+      ),
+      h1: ({ children }) => (
+        <h1 className="w-full text-4xl font-bold mt-8 mb-4">{children}</h1>
+      ),
+      blockquote: ({ children }) => (
+        <blockquote className="w-full border-l-4 pl-4 italic text-gray-600">
+          {children}
+        </blockquote>
+      ),
+    },
+  }
+
   return (
     <Container>
       <h1 className="mt-2 mb-3 text-3xl font-semibold tracking-tight text-center lg:leading-snug text-brand-primary lg:text-4xl dark:text-white">
@@ -16,7 +33,7 @@ export default function About({ authors, data, lang }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-5 mt-6 mb-16 md:mt-16 md:mb-32 md:gap-16">
+      <div className="grid grid-cols-3 gap-5 mt-6 md:mt-16  md:gap-16">
         {authors.slice(1, 4).map(author => {
           const imageProps = urlForImage(author?.image) || null;
           return (
@@ -37,10 +54,14 @@ export default function About({ authors, data, lang }) {
         })}
       </div>
 
-      <div className="mx-auto prose dark:prose-invert mt-14">
+      <div className="max-w-full">
         <div className="text-justify">
 
-          {data?.body && <PortableText value={data.body} />}
+          {data?.body && (
+            <div className="w-full prose-lg dark:prose-invert">
+              <PortableText value={data.body} components={customComponents} />
+            </div>
+          )}
         </div>
 
         <p className="text-center w-full">

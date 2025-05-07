@@ -5,7 +5,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 // Define the props for the Section component
 interface Point {
-  ServiceCardItemDescription: string;
+  contentCardItemDescription: string;
 }
 
 interface SectionProps {
@@ -69,40 +69,42 @@ export default function ServiceDescription({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-8 ${reverse ? 'lg:flex-row-reverse' : ''
+          className={`grid grid-cols-1 ${imageSrc ? 'lg:grid-cols-2' : ''} gap-8 ${reverse ? 'lg:flex-row-reverse' : ''
             }`}
         >
           {/* Text */}
           <div className={`space-y-4 ${reverse ? 'lg:order-2' : 'lg:order-1'}`}>
             <h1 className="text-5xl font-bold dark:text-white text-black ">{title}</h1>
-            <p className="text-gray-500 text-xl mb-2">{description}</p>
+            <p className="text-gray-500 text-justify text-xl mb-2">{description}</p>
             <hr />
-            <ul className="list-disc pl-5 space-y-2">
+            <ul className="list-disc text-justify pl-5 space-y-2">
 
               {points?.map((item: Point, index: number) => (
-                <li key={index} className="flex items-center text-black dark:text-white">
+                <li key={index} className="flex items-center text-justify text-black dark:text-white">
                   <CheckCircleIcon className="h-5 w-5 text-blue-600 mr-2" />
-                  {item?.ServiceCardItemDescription}
+                  {item?.contentCardItemDescription}
                 </li>
               ))}
 
             </ul>
-            <p className="text-gray-500 text-xl mb-2">
+            <p className="text-gray-500 text-justify text-xl mb-2">
               {description2}
             </p>
           </div>
           {/* Image */}
 
           <div className={`relative ${reverse ? 'lg:order-1' : 'lg:order-2'}`}>
-            {imageSrc?.length > 0 && (
-              <Image
-                src={imageSrc}
-                alt={title}
-                width={600}
-                height={400}
-                className="rounded-lg shadow-lg hover-grow"
-                style={{ width: '100%', height: 'auto' }} // Ensures the image maintains responsive behavior
-              />
+            {imageSrc && (
+              <div className="max-h-[500px] h-full overflow-hidden rounded-lg shadow-lg">
+                <Image
+                  src={imageSrc}
+                  alt={title}
+                  fill
+                  className="rounded-lg shadow-lg hover-grow object-cove"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                   // Ensures the image maintains responsive behavior
+                />
+              </div>
             )}
           </div>
 
