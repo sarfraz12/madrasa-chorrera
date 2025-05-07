@@ -81,17 +81,18 @@ export default async function revalidate(req, res) {
         languages.map(lang => {
             staleRoutes.push(`/${lang}/all/post/${jsonBody.slug.current}`);
             staleRoutes.push(`/${lang}/sidebar/post/${jsonBody.slug.current}`);
-            // staleRoutes.push(`/${lang}/about/aboutUs`);
-            // staleRoutes.push(`/${lang}/about/board`);
-            // staleRoutes.push(`/${lang}/about/misionVision`);
-            // staleRoutes.push(`/${lang}/admission/charges`);
-            // staleRoutes.push(`/${lang}/admission/form`);
-            // staleRoutes.push(`/${lang}/admission/preRegistration`);
-            // staleRoutes.push(`/${lang}/admission/process`);
             staleRoutes.push(`/${lang}/contact`);
             staleRoutes.push(`/${lang}/search`);
             staleRoutes.push(`/${lang}/all`);
             staleRoutes.push(`/${lang}`);
+            staleRoutes.push(`/${lang}/admission/process`);
+            staleRoutes.push(`/${lang}/admission/forms`);
+            staleRoutes.push(`/${lang}/donations`);
+            staleRoutes.push(`/${lang}/education/islamic-curriculum`);
+            staleRoutes.push(`/${lang}/education/school-calendar`);
+            staleRoutes.push(`/${lang}/education/school-curriculum`);
+            staleRoutes.push(`/${lang}/madrasa/aboutUs`);
+            staleRoutes.push(`/${lang}/madrasa/welcome`);
 
             // Add category slugs if they exist
             categorySlugs.map(categorySlug => {
@@ -105,17 +106,18 @@ export default async function revalidate(req, res) {
 
 
         languages.map(lang => {
-            // staleRoutes.push(`/${lang}/about/aboutUs`);
-            // staleRoutes.push(`/${lang}/about/board`);
-            // staleRoutes.push(`/${lang}/about/misionVision`);
-            // staleRoutes.push(`/${lang}/admission/charges`);
-            // staleRoutes.push(`/${lang}/admission/form`);
-            // staleRoutes.push(`/${lang}/admission/preRegistration`);
-            // staleRoutes.push(`/${lang}/admission/process`);
             staleRoutes.push(`/${lang}/contact`);
             staleRoutes.push(`/${lang}/search`);
             staleRoutes.push(`/${lang}/all`);
             staleRoutes.push(`/${lang}`);
+            staleRoutes.push(`/${lang}/admission/process`);
+            staleRoutes.push(`/${lang}/admission/forms`);
+            staleRoutes.push(`/${lang}/donations`);
+            staleRoutes.push(`/${lang}/education/islamic-curriculum`);
+            staleRoutes.push(`/${lang}/education/school-calendar`);
+            staleRoutes.push(`/${lang}/education/school-curriculum`);
+            staleRoutes.push(`/${lang}/madrasa/aboutUs`);
+            staleRoutes.push(`/${lang}/madrasa/welcome`);
         });
     }
 
