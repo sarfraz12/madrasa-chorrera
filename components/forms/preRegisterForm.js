@@ -10,7 +10,7 @@ export default function PreRegisterForm() {
         lastName: '',
         identification: '',
         gender: '',
-        schoolLevel: 'Maternal PK3',
+        schoolLevel: 'Maktab',
         parentName: '',
         parentLastName: '',
         parentIdentification: '',
@@ -72,7 +72,7 @@ export default function PreRegisterForm() {
                     lastName: '',
                     identification: '',
                     gender: '',
-                    schoolLevel: 'Maternal PK3',
+                    schoolLevel: 'Maktab',
                     parentName: '',
                     parentLastName: '',
                     parentIdentification: '',
@@ -127,22 +127,15 @@ export default function PreRegisterForm() {
                             <select disabled={!open} id="gender" name="gender" placeholder="Sexo" value={formData.gender} onChange={handleChange} required className="mt-1 block w-full py-2 px-3 border dark:bg-black border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500  sm:text-sm" >
                                 <option disabled defaultValue value="">Selecciona el Sexo</option>
                                 <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
                             </select>
                         </div>
 
                         <div className="sm:col-span-3">
                             <label htmlFor="schoolLevel" className="block dark:text-white text-sm font-medium text-gray-700"><UserIcon className='h-4 w-4 inline-block mx-2 text-gray-400' />Nivel de Escolaridad 2025</label>
                             <select disabled={!open} id="schoolLevel" name="schoolLevel" placeholder="Nivel de Escolaridad 2025" value={formData.schoolLevel} onChange={handleChange} required className="mt-1 dark:bg-black block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                <option value="Maternal PK3" defaultValue>Maternal PK3</option>
-                                <option value="Pre-Kinder"> Pre-Kinder</option>
-                                <option value="Kinder">Kinder</option>
-                                <option value="Primer Grado">Primer Grado</option>
-                                <option value="Segundo Grado">Segundo Grado</option>
-                                <option value="Tercer Grado">Tercer Grado</option>
-                                <option value="Cuarto Grado">Cuarto Grado</option>
-                                <option value="Quinto Grado">Quinto Grado</option>
-                                <option value="Sexto Grado">Sexto Grado</option>
+                                <option value="Maktab" defaultValue>Maktab</option>
+                                <option value="Hafiz"> Hafizr</option>
+                                <option value="Mowlana">Mowlana</option>
                             </select>
                         </div>
                         <div className="sm:col-span-6 border-slate-800 border-1">

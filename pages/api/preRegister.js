@@ -1,16 +1,17 @@
-import formidable from 'formidable';
+
+// *Token should be developer role
+
+import { IncomingForm } from 'formidable';
 import Joi from 'joi';
 import fs from 'fs';
 import { apiVersion, dataset, projectId, tokenId } from "@/lib/sanity/config";
 import { createClient } from "next-sanity";
-import rateLimit from 'express-rate-limit';
 import sanitizeHtml from 'sanitize-html';
 
 const clientCreate = createClient({
   projectId: projectId, dataset: dataset, useCdn: false,
   apiVersion: apiVersion, token: tokenId, ignoreBrowserTokenWarning: true
-})
-
+});
 
 // for formifable upload file
 export const config = {
@@ -18,6 +19,29 @@ export const config = {
     bodyParser: false,
   },
 };
+
+const rateLimitMap = new Map();
+
+export function rateLimit(key, limit, windowMs) {
+  const now = Date.now();
+  const windowStart = now - windowMs;
+
+  if (!rateLimitMap.has(key)) {
+    rateLimitMap.set(key, []);
+  }
+
+  // Keep only timestamps within the window
+  const requests = rateLimitMap.get(key).filter((timestamp) => timestamp > windowStart);
+
+  if (requests.length >= limit) {
+    return false; // rate limit exceeded
+  }
+
+  requests.push(now);
+  rateLimitMap.set(key, requests);
+
+  return true; // allowed
+}
 
 const schema = Joi.object({
   firstName: Joi.string().required().label('Primer Nombre'),
@@ -30,11 +54,11 @@ const schema = Joi.object({
   parentIdentification: Joi.string().required().label('Identificación del Acudiente'),
   parentEmail: Joi.string().required().label('Email del Acudiente'),
   parentCellphone: Joi.string().required().label('Celular del Acudiente'),
-  attachment: Joi.any().optional().label('Attachment'),
+  attachment: Joi.any().optional().allow(null).label('Attachment'),
 });
 
 const parseForm = async (req) => {
-  const form = new formidable.IncomingForm();
+  const form = new IncomingForm();
   return new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
@@ -50,27 +74,30 @@ const sanitizeField = (field) => {
   });
 };
 
-// Set up rate limiter middleware
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // Limit each IP to 100 requests per windowMs
-  handler: (req, res) => {
-    res.status(429).json({ error: 'Too many requests, please try again later.' });
-  },
-});
-
-
+// Handler of the data request
 const handler = async (req, res) => {
+  const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
+
+  const allowed = rateLimit(ip, 20, 15 * 60 * 1000); // 20 requests per 15 minutes
+
+  if (!allowed) {
+    return res.status(429).json({ error: 'Too many requests, please try again later.' });
+  }
 
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
   }
 
   try {
+    const { fields, files } = await parseForm(req);
 
-    const { fields, files } = await parseForm(req, { multiples: false });
+    // Normalize fields to ensure they are not arrays
+    const normalizedFields = Object.fromEntries(
+      Object.entries(fields).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value])
+    );
 
-    const { error } = schema.validate({ ...fields, attachment: files.attachment });
+    // Validate input with Joi
+    const { error } = schema.validate({ ...normalizedFields, attachment: files.attachment });
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
@@ -84,33 +111,30 @@ const handler = async (req, res) => {
       attachmentAssetId = upload._id;
     }
 
-
-
-    //  input data
+    // Prepare the document
     const document = {
       _type: 'preRegisterForm',
-      firstName: sanitizeField(fields.firstName),
-      lastName: sanitizeField(fields.lastName),
-      identification: sanitizeField(fields.identification),
-      gender: sanitizeField(fields.gender),
-      schoolLevel: sanitizeField(fields.schoolLevel),
-      parentName: sanitizeField(fields.parentName),
-      parentLastName: sanitizeField(fields.parentLastName),
-      parentIdentification: sanitizeField(fields.parentIdentification),
-      parentEmail: sanitizeField(fields.parentEmail),
-      parentCellphone: sanitizeField(fields.parentCellphone),
+      firstName: sanitizeField(normalizedFields.firstName),
+      lastName: sanitizeField(normalizedFields.lastName),
+      identification: sanitizeField(normalizedFields.identification),
+      gender: sanitizeField(normalizedFields.gender),
+      schoolLevel: sanitizeField(normalizedFields.schoolLevel),
+      parentName: sanitizeField(normalizedFields.parentName),
+      parentLastName: sanitizeField(normalizedFields.parentLastName),
+      parentIdentification: sanitizeField(normalizedFields.parentIdentification),
+      parentEmail: sanitizeField(normalizedFields.parentEmail),
+      parentCellphone: sanitizeField(normalizedFields.parentCellphone),
       attachment: files.attachment ? {
         _type: 'file',
         asset: { _type: 'reference', _ref: attachmentAssetId }
       } : { _type: 'file', asset: { _type: 'reference' } }, // Allow attachment to be null
       slug: {
         _type: 'slug',
-        current: sanitizeField(fields.firstName + "-" + fields.lastName + "-" + fields.identification.toLowerCase().replace(/\s+/g, '-')),
+        current: sanitizeField(normalizedFields.firstName + "-" + normalizedFields.lastName + "-" + normalizedFields.identification.toLowerCase().replace(/\s+/g, '-')),
       },
     };
 
     console.log('Document:', document); // Debugging line
-
 
     // Store data in Sanity
     const createdDocument = await clientCreate.create(document);
@@ -121,9 +145,5 @@ const handler = async (req, res) => {
     res.status(500).json({ message: 'Failed to submit form' });
   }
 }
-// });
 
-// Apply rate limiter to the handler
-export default function (req, res) {
-  return apiLimiter(req, res, () => handler(req, res));
-}
+export default handler;
