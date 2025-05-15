@@ -82,6 +82,7 @@ export default  function Footer(props:any) {
                     {/* SOCIAL MEDIA */}
                     <div className="gap-4 flex-wrap flex justify-between p-2">
                         <div>
+                        {props?.social && (
                             <ul className="space-x-3 mt-6 mb-6 Lg:mb-0">
                                 {props?.social?.map((item:any, index:number) => (
                                     <li className="inline-block" key={item._key}>
@@ -95,6 +96,7 @@ export default  function Footer(props:any) {
 
                                 ))}
                             </ul>
+                        )}
                         </div>
                         {/* UBICACION COMPONENTE */}
                         <div>

@@ -75,12 +75,14 @@ export default function Contact({ settings, lang }) {
           <p className="max-w-sm mt-5">
             {settings?.description ? settings?.description : " "}
           </p>
-
+          
           <div className="mt-5">
+          {settings?.address && (
             <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-gray-400">
               <MapPinIcon className="w-4 h-4" />
               <span>{settings?.address && settings?.address}</span>
             </div>
+          )}
             {settings?.email && (
               <div className="flex items-center mt-2 space-x-2 text-dark-600 dark:text-gray-400">
                 <EnvelopeIcon className="w-4 h-4" />
