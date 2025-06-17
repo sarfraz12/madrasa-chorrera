@@ -17,8 +17,8 @@ export default async function Handler (req, res)  {
     };
 
     try {
-        const serviceID = 'service_ns37blu';
-        const templateID = 'template_4noz9sf';
+        const serviceID = 'service_t9lsqik';
+        const templateID = 'template_7frcfrh';
         const userID = 'etnkFFSzzkczK63iL';
 
         await emailjs.send(serviceID, templateID, templateParams, userID).then(
