@@ -81,7 +81,7 @@ export default function PreRegisterForm() {
                     - Nombre: ${formData.parentName} ${formData.parentLastName}
                     - Identificación: ${formData.parentIdentification}
                     - Email: ${formData.parentEmail}
-                    - Celular: ${formData.parentCellphone}`,
+                    - Celular: ${formData.parentCellphone}`.trim(),
                 }
                 const serviceID = 'service_t9lsqik';
                 const templateID = 'template_7frcfrh';
