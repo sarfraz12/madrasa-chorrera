@@ -74,7 +74,7 @@ export default function PreRegisterForm() {
                 const templateParams = {
                     from_name: formData['firstName'],
                     from_email: formData['parentEmail'],
-                    message: formDataToSend,
+                    message: formData,
                 }
 
                 try {
@@ -95,12 +95,6 @@ export default function PreRegisterForm() {
                             setServerError(error);
                         }
                     );
-
-                } catch (error) {
-
-                    console.error('Error:', error);
-                    setServerError(error.message);
-                }
 
                 // reestablecer formulario
                 setFormData({
