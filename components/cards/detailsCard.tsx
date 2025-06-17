@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CardProps {
     title?: string;
@@ -12,6 +13,7 @@ interface CardProps {
     hasImage?: boolean;
     size?: 'small' | 'medium' | 'large';
     hasButton?: boolean;
+    buttonLink?: string;
     span?: 'horizontal' | 'vertical'; // Prop to control span behavior
     animation?: string;
 }
@@ -25,6 +27,7 @@ const DetailsCard: React.FC<CardProps> = ({
     hasImage = false,
     size = 'medium',
     hasButton = true,
+    buttonLink,
     span,
     animation = "animate-fadeInScale",
 }) => {
@@ -37,8 +40,8 @@ const DetailsCard: React.FC<CardProps> = ({
 
     // Define span classes for grid
     const spanClasses = {
-        horizontal: 'md:col-span-2', // Spans horizontally across two columns
-        vertical: 'md:row-span-2',    // Spans vertically across two rows
+        horizontal: 'md:col-span-3', // Spans horizontally across two columns
+        vertical: 'md:row-span-3',    // Spans vertically across two rows
     };
 
     // animation handler
@@ -111,9 +114,11 @@ const DetailsCard: React.FC<CardProps> = ({
             {/* Fancy Button Section */}
             {hasButton && (
                 <div className="mt-4 relative"> {/* Margin for the button */}
-                    <button className="flex items-center justify-center px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:text-white hover:bg-indigo-600 transition-colors duration-300 ease-in-out transform hover:scale-105">
-                        More <ArrowRightIcon className="ml-2 h-4 w-4" />
-                    </button>
+                    <Link href={buttonLink || ''} target='_blank' passHref>
+                        <button className="flex items-center justify-center px-4 py-2 border border-indigo-600 text-indigo-600 rounded-lg hover:text-white hover:bg-indigo-600 transition-colors duration-300 ease-in-out transform hover:scale-105">
+                            More <ArrowRightIcon className="ml-2 h-4 w-4" />
+                        </button>
+                    </Link>
                 </div>
             )}
         </div>

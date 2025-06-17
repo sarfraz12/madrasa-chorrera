@@ -88,6 +88,7 @@ export default function IslamicCurriculumPage(props) {
               hasImage={card?.galleryHasImage}
               size={card?.gallerySize}
               hasButton={card?.galleryHasButton}
+              buttonLink={card?.galleryButtonLink}
               span={card?.gallerySpan} // Apply span (horizontal or vertical)
               animation={card?.galleryAnimation}
             />

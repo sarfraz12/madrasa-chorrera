@@ -39,7 +39,7 @@ export default function middleware (request: NextRequest) {
 // MATCHER
 export const config = {
     // Matcher ignoring `/_next/` and `/api/`
-    matcher: ["/((?!api|_next/static|_next/image|favicon.ico|/app/favicon.ico|pages/api/|images|studio|opengraph-image|robots.txt|sitemap.ts).*)"], 
+    matcher: ["/((?!api|_next/static|_next/image|favicon.ico|appletouchicon.png|/app/favicon.ico|pages/api/|images|studio|opengraph-image|robots.txt|sitemap.ts).*)"], 
 }
 
 

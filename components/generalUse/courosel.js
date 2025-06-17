@@ -66,37 +66,41 @@ const Carousel = ({ images }) => {
 
       {/* Content */}
       {currentImage && (
-        <div className="absolute top-1/3 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 px-8 text-center max-w-4xl">
+        <div
+          role="region"
+          aria-label="Carousel Slide Content"
+          className="absolute top-1/3 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2 px-4 sm:px-8 text-center w-full max-w-[90%] sm:max-w-4xl animate-fade-in"
+        >
 
           {/* Title */}
           {currentImage?.sliderTitle && (
             <div
-              className={`inline-block px-6 py-4 rounded-lg mb-4
-              ${currentImage?.titleOverlayColor === 'white'
+              className={`inline-block w-full sm:w-auto px-4 sm:px-6 py-3 sm:py-4 rounded-lg mb-4 transition-all duration-700 ease-in-out animate-slide-up
+        ${currentImage?.titleOverlayColor === 'white'
                   ? 'bg-white/80 text-black'
                   : currentImage?.titleOverlayColor === 'black'
                     ? 'bg-black/70 text-white'
-                    : `${currentImage?.titleTextColor === 'black'?'text-black':'text-white'}` // none text based on general overlay
+                    : `${currentImage?.titleTextColor === 'black' ? 'text-black' : 'text-white'}`
                 }`}
             >
-              <h3 className="text-3xl lg:text-5xl font-semibold tracking-tight leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold tracking-tight leading-tight">
                 {currentImage.sliderTitle}
-              </h3>
+              </h2>
             </div>
           )}
 
           {/* Description */}
           {currentImage?.sliderDescription && (
             <div
-              className={`inline-block mt-4 px-6 py-4 rounded-lg max-w-2xl mx-auto
-              ${currentImage?.descriptionOverlayColor === 'white'
+              className={`inline-block mt-4 px-4 sm:px-6 py-3 sm:py-4 rounded-lg w-full sm:w-auto max-w-[90%] sm:max-w-2xl mx-auto transition-all duration-700 ease-in-out animate-slide-up delay-150
+        ${currentImage?.descriptionOverlayColor === 'white'
                   ? 'bg-white/70 text-black'
                   : currentImage?.descriptionOverlayColor === 'black'
                     ? 'bg-black/60 text-white'
-                    : `${currentImage?.overlay === 'white'?'text-black':'text-white'}` // none text based on general overlay
+                    : `${currentImage?.overlay === 'white' ? 'text-black' : 'text-white'}`
                 }`}
             >
-              <p className="text-lg lg:text-xl leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
                 {currentImage.sliderDescription}
               </p>
             </div>
@@ -104,6 +108,7 @@ const Carousel = ({ images }) => {
 
         </div>
       )}
+
 
       {/* Arrows */}
       <button

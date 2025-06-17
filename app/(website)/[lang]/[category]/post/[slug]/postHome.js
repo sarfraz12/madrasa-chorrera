@@ -50,7 +50,7 @@ export default function Post(props) {
                 <div className="relative h-5 w-5 flex-shrink-0">
                   {AuthorimageProps && (
                     <Link
-                      href={`/author/${post.author.slug.current}`}>
+                      href={`/${props.lang}/author/${post.author.slug.current}`}>
                       <Image
                         src={AuthorimageProps.src}
                         alt={post?.author?.name}
@@ -102,7 +102,7 @@ export default function Post(props) {
               {props.lang === "es" ? "← Ver todos" : "← View all posts" }
             </Link>
           </div>
-          {post.author && <AuthorCard author={post.author} />}
+          {post.author && <AuthorCard lang={props.lang} author={post.author} />}
         </article>
         <aside className="sticky top-0 w-full self-start md:w-96">
           <Sidebar
