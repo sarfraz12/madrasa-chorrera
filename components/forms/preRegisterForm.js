@@ -154,7 +154,7 @@ export default function PreRegisterForm() {
                         <div className="sm:col-span-3">
                             <label htmlFor="gender" className="block dark:text-white text-sm font-medium text-gray-700"><UserIcon className='h-4 w-4 inline-block mx-2 text-gray-400' />Sexo</label>
                             <select disabled={!open} id="gender" name="gender" placeholder="Sexo" value={formData.gender} onChange={handleChange} required className="mt-1 block w-full py-2 px-3 border dark:bg-black border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500  sm:text-sm" >
-                                <option disabled value="">Masculino</option>
+                                <option disabled value="">Seleccione</option>
                                 <option defaultValue value="Masculino">Masculino</option>
                             </select>
                         </div>
