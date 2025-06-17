@@ -74,7 +74,7 @@ export default function PreRegisterForm() {
                 const templateParams = {
                     from_name: formData['firstName'],
                     from_email: formData['parentEmail'],
-                    message: formData['identification', 'firstName','lastName', 'parentEmail'],
+                    message: 'Nueva Matricula Registrada en Sistema',
                 }
 
                 const serviceID = 'service_t9lsqik';
