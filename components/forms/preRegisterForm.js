@@ -74,25 +74,14 @@ export default function PreRegisterForm() {
                 const templateParams = {
                     from_name: formData['firstName'],
                     from_email: formData['parentEmail'],
-                    message: formData,
+                    message: formData['identification', 'firstName','lastName', 'parentEmail'],
                 }
 
                 const serviceID = 'service_t9lsqik';
                 const templateID = 'template_7frcfrh';
                 const userID = 'etnkFFSzzkczK63iL';
 
-                await emailjs.send(serviceID, templateID, templateParams, userID).then(
-                    (result) => {
-                        console.log("resullt", result.text);
-                        setIsSuccess(true);
-                        setMessage((lang == "es" ? "Logrado. Mensaje enviado" : "Success. Message sent successfully"));
-                        reset();
-                    },
-                    (error) => {
-                        console.log("erro1", error);
-                        setServerError(error);
-                    }
-                );
+                await emailjs.send(serviceID, templateID, templateParams, userID);
 
                 // reestablecer formulario
                 setFormData({
