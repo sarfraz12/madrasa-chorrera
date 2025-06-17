@@ -1,9 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { UserIcon, UserGroupIcon } from '@heroicons/react/24/solid';
+import emailjs from '@emailjs/browser';
+
 
 export default function PreRegisterForm() {
-    const  open=true 
+    const open = true
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -67,6 +69,40 @@ export default function PreRegisterForm() {
 
             const result = await response.json();
             if (response.ok) {
+
+                // enviar correo con notificacion de registro
+                const templateParams = {
+                    from_name: formData['firstName'],
+                    from_email: formData['parentEmail'],
+                    message: formDataToSend,
+                }
+
+                try {
+
+                    const serviceID = 'service_t9lsqik';
+                    const templateID = 'template_7frcfrh';
+                    const userID = 'etnkFFSzzkczK63iL';
+
+                    await emailjs.send(serviceID, templateID, templateParams, userID).then(
+                        (result) => {
+                            console.log("resullt", result.text);
+                            setIsSuccess(true);
+                            setMessage((lang == "es" ? "Logrado. Mensaje enviado" : "Success. Message sent successfully"));
+                            reset();
+                        },
+                        (error) => {
+                            console.log("erro1", error);
+                            setServerError(error);
+                        }
+                    );
+
+                } catch (error) {
+
+                    console.error('Error:', error);
+                    setServerError(error.message);
+                }
+
+                // reestablecer formulario
                 setFormData({
                     firstName: '',
                     lastName: '',
@@ -83,6 +119,8 @@ export default function PreRegisterForm() {
 
                 document.getElementById('fileInput').value = ''; // Reset file input
                 setMessage('Formulario Registrado Exitosamente!!');
+
+
             } else {
                 setMessage(result.message || 'Error al registrar');
             }
