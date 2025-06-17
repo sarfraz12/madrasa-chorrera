@@ -32,9 +32,9 @@ export default function Contact({ settings, lang }) {
 
     try {
 
-      const serviceID = 'service_ns37blu';
-      const templateID = 'template_fs9wkpp';
-      const userID = 'etnkFFSzzkczK63iL';
+        const serviceID = 'service_t9lsqik';
+        const templateID = 'template_7frcfrh';
+        const userID = 'etnkFFSzzkczK63iL';
 
       await emailjs.send(serviceID, templateID, templateParams, userID).then(
         (result) => {
