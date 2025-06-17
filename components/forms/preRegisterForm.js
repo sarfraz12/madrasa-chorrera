@@ -72,11 +72,24 @@ export default function PreRegisterForm() {
 
                 // enviar correo con notificacion de registro
                 const templateParams = {
-                    from_name: formData['firstName'],
-                    from_email: formData['parentEmail'],
-                    message: 'Nueva Matricula Registrada en Sistema',
-                }
+                    from_name: `${formData.firstName} ${formData.lastName}`,
+                    from_email: formData.parentEmail,
+                    message: `
+                            Nueva Matrícula Registrada en el Sistema:
 
+                            📌 Datos del Estudiante:
+                            - Nombre: ${formData.firstName} ${formData.lastName}
+                            - Identificación: ${formData.identification}
+                            - Sexo: ${formData.gender}
+                            - Nivel Escolaridad 2025: ${formData.schoolLevel}
+
+                            👨‍👩‍👧 Datos del Acudiente:
+                            - Nombre: ${formData.parentName} ${formData.parentLastName}
+                            - Identificación: ${formData.parentIdentification}
+                            - Email: ${formData.parentEmail}
+                            - Celular: ${formData.parentCellphone}
+                            `,
+                }
                 const serviceID = 'service_t9lsqik';
                 const templateID = 'template_7frcfrh';
                 const userID = 'etnkFFSzzkczK63iL';
