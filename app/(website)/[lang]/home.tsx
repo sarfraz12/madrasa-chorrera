@@ -3,7 +3,7 @@ import Container from "@/components/generalUse/container";
 import Carousel from "@/components/generalUse/courosel";
 import PostList from "@/components/posts/postlist";
 import ComparisonCard from "@/components/cards/ComparisonCard";
-import ClientSlider from "@/components/sliders/client";
+// import ClientSlider from "@/components/sliders/client";
 import CtaCard from "@/components/cards/ctaCard";
 import ServiceDescription from "@/components/cards/serviceDescription";
 import Link from "next/link";
