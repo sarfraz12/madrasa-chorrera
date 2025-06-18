@@ -1,8 +1,28 @@
 import Link from "next/link"
 import { cx } from "@/utils/all";
 
+const colorMap: Record<string, string> = {
+  blue: 'bg-blue-500',
+  red: 'bg-red-500',
+  green: 'bg-green-500',
+  yellow: 'bg-yellow-400',
+  teal: 'bg-teal-400',
+  orange: 'bg-orange-400',
+  // add more as needed
+};
 
-export default function ComparisonCard({ title, category, color='bg-blue-500', textColor='text-black', link }:
+const textMap: Record<string, string> = {
+  blue: 'text-blue-500',
+  red: 'text-red-500',
+  green: 'text-green-500',
+  yellow: 'text-yellow-400',
+  teal: 'text-teal-400',
+  orange: 'text-orange-400',
+  black: 'text-black',
+  // add more as needed
+};
+
+export default function ComparisonCard({ title, category, color = 'blue', textColor = 'black', link }:
   { title?: string, category?: string, color?: string, textColor?: string, link?: string }) {
 
   return (
@@ -10,12 +30,18 @@ export default function ComparisonCard({ title, category, color='bg-blue-500', t
       <Link href={link || "/"}>
         <div className="flex items-center space-x-4">
           {/* Vertical colored line */}
-          <div className={cx('h-10 w-1.5',color ? color : "bg-teal-500",'rounded-full')}></div>
+          <div
+            className={cx(
+              'h-10 w-1.5 rounded-full',
+              colorMap[color] || 'bg-blue-500'
+            )}
+          ></div>
+
 
           <div className="text-left">
             <h3 className="text-sm font-semibold dark:text-black text-gray-600">{category}</h3>
             <p className={cx('text-lg font-bold dark:text-black',
-               textColor ? textColor : "text-blue-500")}>{title}</p>
+              textMap[textColor] || 'bg-blue-500')}>{title}</p>
           </div>
         </div>
       </Link>
