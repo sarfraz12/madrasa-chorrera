@@ -138,6 +138,59 @@ const HomePage = ({ posts, landingData, lang }: HomeProps) => {
           dataImage={landingData[0]?.clientImages || []}
         />
 
+
+
+        {/* Latest posts */}
+        {/* <div className="flex items-center justify-center mt-4">
+          <h3 className="text-2xl dark:text-white text-black">
+            <strong>{lang === "en" ? "Our" : "Los"}</strong>{" "}
+            {lang === "en" ? "Latest" : "Últimos"}
+          </h3>
+        </div>
+        <div className="grid gap-10 mt-10 lg:gap-10 md:grid-cols-2 xl:grid-cols-3">
+          {posts
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            ) // Sort by creation date
+            .slice(0, 3) // Get the last 3 posts
+            .map((post, index) => (
+              <PostList
+                key={index}
+                post={post}
+                fontWeight="normal"
+                pathPrefix="all"
+                aspect="square"
+              />
+            ))}
+        </div> */}
+
+        {/* SECTION OF MORE SERVICE */}
+        <div className="min-h-screen">
+          {landingData[0]?.ServiceCards?.map((item: any, index: number) => (
+            <ServiceDescription
+              key={index}
+              title={item?.serviceCardTitle || "Service Title"}
+              description={item?.serviceCarddescription || "Description"}
+              description2={item?.serviceCarddescription2 || "Additional Description"}
+              imageSrc={urlForImage(item?.serviceCardImage) || fallbackImage}
+              reverse={item?.serviceCardReverse || false}
+              points={item?.ServiceCardPoints || []}
+              animation={item?.serviceCardAnimation || ""}
+            />
+          ))}
+        </div>
+
+        <CtaCard
+          title={landingData[0]?.ctaCardTitle || "Call to Action Title"}
+          subTitle={landingData[0]?.ctaCardSubtitle || "Subtitle"}
+          description={landingData[0]?.ctaCardDescription || "Description"}
+          buttonMessage={landingData[0]?.ctaCardButtonMessage || "Click Here"}
+          buttonLink={landingData[0]?.ctaCardButtonLink || "#"}
+          imageAlt={landingData[0]?.ctaCardImageAlt || "CTA Image"}
+          image={urlForImage(landingData[0]?.ctaCardImage) || fallbackImage}
+        />
+
         {/* POST SECTION */}
         {featuredPost.length > 0 && (
           <div>
@@ -174,57 +227,6 @@ const HomePage = ({ posts, landingData, lang }: HomeProps) => {
             </div>
           </div>
         )}
-
-        {/* Latest posts */}
-        <div className="flex items-center justify-center mt-4">
-          <h3 className="text-2xl dark:text-white text-black">
-            <strong>{lang === "en" ? "Our" : "Los"}</strong>{" "}
-            {lang === "en" ? "Latest" : "Últimos"}
-          </h3>
-        </div>
-        <div className="grid gap-10 mt-10 lg:gap-10 md:grid-cols-2 xl:grid-cols-3">
-          {posts
-            .sort(
-              (a, b) =>
-                new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-            ) // Sort by creation date
-            .slice(0, 3) // Get the last 3 posts
-            .map((post, index) => (
-              <PostList
-                key={index}
-                post={post}
-                fontWeight="normal"
-                pathPrefix="all"
-                aspect="square"
-              />
-            ))}
-        </div>
-
-        {/* SECTION OF MORE SERVICE */}
-        <div className="min-h-screen">
-          {landingData[0]?.ServiceCards?.map((item: any, index: number) => (
-            <ServiceDescription
-              key={index}
-              title={item?.serviceCardTitle || "Service Title"}
-              description={item?.serviceCarddescription || "Description"}
-              description2={item?.serviceCarddescription2 || "Additional Description"}
-              imageSrc={urlForImage(item?.serviceCardImage) || fallbackImage}
-              reverse={item?.serviceCardReverse || false}
-              points={item?.ServiceCardPoints || []}
-              animation={item?.serviceCardAnimation || ""}
-            />
-          ))}
-        </div>
-
-        <CtaCard
-          title={landingData[0]?.ctaCardTitle || "Call to Action Title"}
-          subTitle={landingData[0]?.ctaCardSubtitle || "Subtitle"}
-          description={landingData[0]?.ctaCardDescription || "Description"}
-          buttonMessage={landingData[0]?.ctaCardButtonMessage || "Click Here"}
-          buttonLink={landingData[0]?.ctaCardButtonLink || "#"}
-          imageAlt={landingData[0]?.ctaCardImageAlt || "CTA Image"}
-          image={urlForImage(landingData[0]?.ctaCardImage) || fallbackImage}
-        />
       </Container>
     </>
   );

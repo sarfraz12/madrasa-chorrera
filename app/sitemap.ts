@@ -83,13 +83,13 @@ export default async function generateSitemap(): Promise<MetadataRoute.Sitemap> 
       priority: 1,
     },
         {
-      url: `${baseURL}/en/search`,
+      url: `${baseURL}/es/search`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 1,
     },
         {
-      url: `${baseURL}/es/search`,
+      url: `${baseURL}/en/search`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 1,
