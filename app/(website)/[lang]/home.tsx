@@ -133,10 +133,10 @@ const HomePage = ({ posts, landingData, lang }: HomeProps) => {
       </section>
 
       <Container large>
-        <ClientSlider
+        {/* <ClientSlider
           lang={lang}
           dataImage={landingData[0]?.clientImages || []}
-        />
+        /> */}
 
 
 
