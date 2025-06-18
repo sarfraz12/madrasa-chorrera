@@ -175,7 +175,7 @@ const HomePage = ({ posts, landingData, lang }: HomeProps) => {
               description2={item?.serviceCarddescription2 || "Additional Description"}
               imageSrc={urlForImage(item?.serviceCardImage) || fallbackImage}
               reverse={item?.serviceCardReverse || false}
-              points={item?.ServiceCardPoints || []}
+              points={item?.contentCardPoints}
               animation={item?.serviceCardAnimation || ""}
             />
           ))}
