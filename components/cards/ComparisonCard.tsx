@@ -2,22 +2,22 @@ import Link from "next/link"
 import { cx } from "@/utils/all";
 
 const colorMap: Record<string, string> = {
-  blue: 'bg-blue-500',
-  red: 'bg-red-500',
-  green: 'bg-green-500',
-  yellow: 'bg-yellow-400',
-  teal: 'bg-teal-400',
-  orange: 'bg-orange-400',
+  blue: 'bg-blue-800',
+  red: 'bg-red-800',
+  green: 'bg-green-800',
+  yellow: 'bg-yellow-800',
+  teal: 'bg-teal-800',
+  orange: 'bg-orange-800',
   // add more as needed
 };
 
 const textMap: Record<string, string> = {
-  blue: 'text-blue-500',
-  red: 'text-red-500',
-  green: 'text-green-500',
-  yellow: 'text-yellow-400',
-  teal: 'text-teal-400',
-  orange: 'text-orange-400',
+  blue: 'text-blue-800',
+  red: 'text-red-800',
+  green: 'text-green-800',
+  yellow: 'text-yellow-800',
+  teal: 'text-teal-800',
+  orange: 'text-orange-800',
   black: 'text-black',
   // add more as needed
 };
@@ -41,7 +41,7 @@ export default function ComparisonCard({ title, category, color = 'blue', textCo
           <div className="text-left">
             <h3 className="text-sm font-semibold dark:text-black text-gray-600">{category}</h3>
             <p className={cx('text-lg font-bold dark:text-black',
-              textMap[textColor] || 'bg-blue-500')}>{title}</p>
+              textMap[textColor] || 'text-black')}>{title}</p>
           </div>
         </div>
       </Link>
